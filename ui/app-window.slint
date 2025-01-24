@@ -1,0 +1,17 @@
+import { GridBox, CheckBox, Button } from "std-widgets.slint";
+
+export component AppWindow inherits Window {
+
+    //Main app window
+    width: 480px;
+    height: 480px;
+    title: @tr("Password");
+    icon: @image-url("./icon.png");
+    background: gray;
+
+    //ToDo list
+    Layout := GridBox {
+        spacing: 0px;
+        padding: 0px;
+    }
+}
