@@ -2,17 +2,20 @@ import { GridBox, LineEdit, CheckBox, Button, Slider } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
 
+    //Generate callback
     callback generate_password;
 
-    //Main app window
-    width: 500px;
-    height: 500px;
+    //Generated password variable
+    in-out property <string> password;
+
+    //Main app window layout
+    width: 480px;
+    height: 240px;
     title: @tr("Password");
     icon: @image-url("./icon.png");
     background: gray;
 
-    //ToDo list
-    Layout := GridLayout {
+    GridLayout {
         spacing: 20px;
         padding: 10px;
         Row {
@@ -27,64 +30,19 @@ export component AppWindow inherits Window {
             }
         }
         Row {
-            LineEdit {
+            generated := LineEdit {
                 height: 60px;
                 placeholder-text: "Password";
+                text: password;
             }
             Button {
                 height: 60px;
                 text: "Copy";
                 primary: true;
-            }
-        }
-        Row {
-            Text {
-                height: 30px;
-                text: "Length";
-                color: black;
-            }
-            Slider {
-                height: 30px;
-            }
-        }
-        Row {
-            Text {
-                height: 30px;
-                text: "Uppercase";
-                color: black;
-            }
-            CheckBox {
-                height: 30px;
-            }
-        }
-        Row {
-            Text {
-                height: 30px;
-                text: "Lowercase";
-                color: black;
-            }
-            CheckBox {
-                height: 30px;
-            }
-        }
-        Row {
-            Text {
-                height: 30px;
-                text: "Numbers";
-                color: black;
-            }
-            CheckBox {
-                height: 30px;
-            }
-        }
-        Row {
-            Text {
-                height: 30px;
-                text: "Symbols";
-                color: black;
-            }
-            CheckBox {
-                height: 30px;
+                clicked => {
+                    generated.select-all(); //Select password text
+                    generated.copy(); //Copy password to clipboard
+                }
             }
         }
         Row {
