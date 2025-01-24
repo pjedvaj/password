@@ -11,9 +11,9 @@ export component AppWindow inherits Window {
     //Main app window layout
     width: 480px;
     height: 240px;
-    title: @tr("Password");
+    title: @tr("Password generator");
     icon: @image-url("./icon.png");
-    background: gray;
+    background: grey;
 
     GridLayout {
         spacing: 20px;
@@ -24,19 +24,22 @@ export component AppWindow inherits Window {
                 horizontal-alignment: center;
                 vertical-alignment: center;
                 text: "Password generator";
-                color: black;
+                color: darkgrey;
                 font-size: 20pt;
                 font-family: "Arial";
+                colspan: 2;
             }
         }
         Row {
             generated := LineEdit {
                 height: 60px;
+                width: 60%;
                 placeholder-text: "Password";
                 text: password;
             }
             Button {
                 height: 60px;
+                width: 30%;
                 text: "Copy";
                 primary: true;
                 clicked => {
@@ -50,6 +53,7 @@ export component AppWindow inherits Window {
                 text: "Generate";
                 primary: true;
                 height: 60px;
+                colspan: 2;
                 clicked => {
                     generate_password();
                 }
