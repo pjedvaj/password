@@ -1,4 +1,4 @@
-import { GroupBox, LineEdit, CheckBox, Button, Slider, VerticalBox } from "std-widgets.slint";
+import { GridBox, LineEdit, CheckBox, Button, Slider } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
 
@@ -7,73 +7,78 @@ export component AppWindow inherits Window {
     height: 480px;
     title: @tr("Password");
     icon: @image-url("./icon.png");
-    background: black;
+    background: gainsboro;
 
     //ToDo list
-    Layout := VerticalBox {
-        // spacing: 0px;
-        // padding: 0px;
+    Layout := GridLayout {
+        spacing: 0px;
+        padding: 0px;
             Text {
                 text: "Password generator";
-                color: whitesmoke;
+                color: black;
                 font-size: 20pt;
                 font-family: "Arial";
-                horizontal-alignment: center;
             }
-        GroupBox {
+        Row {
             LineEdit {
                 placeholder-text: "Password";
-                horizontal-alignment: center;
             }
             Button {
                 text: "Copy";
                 primary: true;
             }
         }
-        GroupBox {
+        Row {
             Text {
 
                 text: "Length";
+                color: black;
             }
             CheckBox {
 
             }
         }
-        GroupBox {
+        Row {
             Text {
                 text: "Uppercase";
+                color: black;
             }
             CheckBox {
 
             }
         }
-        GroupBox {
+        Row {
             Text {
                 text: "Lowercase";
+                color: black;
             }
             CheckBox {
 
             }
         }
-        GroupBox {
+        Row {
             Text {
                 text: "Numbers";
+                color: black;
             }
             CheckBox {
 
             }
         }
-        GroupBox {
+        Row {
             Text {
                 text: "Symbols";
+                color: black;
             }
             CheckBox {
 
             }
         }
-        Button {
-            text: "Generate";
-            primary: true;
+        Row {
+            Button {
+                text: "Generate";
+                primary: true;
+            }
         }
     }
 }
