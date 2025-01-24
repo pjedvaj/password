@@ -1,4 +1,4 @@
-import { GridBox, CheckBox, Button } from "std-widgets.slint";
+import { GroupBox, LineEdit, CheckBox, Button, Slider, VerticalBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
 
@@ -7,11 +7,73 @@ export component AppWindow inherits Window {
     height: 480px;
     title: @tr("Password");
     icon: @image-url("./icon.png");
-    background: gray;
+    background: black;
 
     //ToDo list
-    Layout := GridBox {
-        spacing: 0px;
-        padding: 0px;
+    Layout := VerticalBox {
+        // spacing: 0px;
+        // padding: 0px;
+            Text {
+                text: "Password generator";
+                color: whitesmoke;
+                font-size: 20pt;
+                font-family: "Arial";
+                horizontal-alignment: center;
+            }
+        GroupBox {
+            LineEdit {
+                placeholder-text: "Password";
+                horizontal-alignment: center;
+            }
+            Button {
+                text: "Copy";
+                primary: true;
+            }
+        }
+        GroupBox {
+            Text {
+
+                text: "Length";
+            }
+            CheckBox {
+
+            }
+        }
+        GroupBox {
+            Text {
+                text: "Uppercase";
+            }
+            CheckBox {
+
+            }
+        }
+        GroupBox {
+            Text {
+                text: "Lowercase";
+            }
+            CheckBox {
+
+            }
+        }
+        GroupBox {
+            Text {
+                text: "Numbers";
+            }
+            CheckBox {
+
+            }
+        }
+        GroupBox {
+            Text {
+                text: "Symbols";
+            }
+            CheckBox {
+
+            }
+        }
+        Button {
+            text: "Generate";
+            primary: true;
+        }
     }
 }
