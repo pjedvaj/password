@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 use slint::SharedString;
 use slint::Weak;
 
