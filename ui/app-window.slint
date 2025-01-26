@@ -4,15 +4,19 @@ export component AppWindow inherits Window {
 
     //Generate callback
     callback generate_password;
+    callback length_password;
+    callback uppercase_password;
     callback lowercase_password;
     callback number_password;
     callback special_password;
 
     //Generated password variable
     in-out property <string> password;
-    in-out property <bool> lower;
-    in-out property <bool> num;
-    in-out property <bool> spec;
+    in-out property <int> long: 16;
+    in-out property <bool> upper: true;
+    in-out property <bool> lower: false;
+    in-out property <bool> num: false;
+    in-out property <bool> spec: false;
 
     //Main app window layout
     width: 480px;
@@ -67,25 +71,32 @@ export component AppWindow inherits Window {
         }
         Row {
             Text {
-                text: "Password length: 16";
+                text: "Password length:";
                 height: 30px;
                 font-size: 14px;
                 font-weight: 100;
+            }
+            TextInput {
+                input-type: number;
+                text: long;
+                edited => {
+                    length_password();
+                }
             }
         }
         Row {
             CheckBox {
                 text: "Uppercase";
-                checked: true;
+                checked: upper;
                 toggled => {
-                    self.checked = true;
+                    uppercase_password();
                 }
             }
         }
         Row {
             CheckBox {
                 text: "Lowercase";
-                checked: false;
+                checked: lower;
                 toggled => {
                     lowercase_password();
                 }
@@ -94,7 +105,7 @@ export component AppWindow inherits Window {
         Row {
             CheckBox {
                 text: "Numbers";
-                checked: false;
+                checked: num;
                 toggled => {
                     number_password();
                 }
@@ -103,7 +114,7 @@ export component AppWindow inherits Window {
         Row {
             CheckBox {
                 text: "Special characters";
-                checked: false;
+                checked: spec;
                 toggled => {
                     special_password();
                 }

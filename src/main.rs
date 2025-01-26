@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"]
+//#![windows_subsystem = "windows"]
 
 use slint::SharedString;
 use slint::Weak;
@@ -19,25 +19,31 @@ fn main() -> Result<(), slint::PlatformError> {
 
     const SPECIAL: &[u8] = b")(*&^%$#@!~";
 
+    let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+
     //Default use only uppercase letters
-    let mut charset:Vec<u8> = [UPPERCASE].concat();
+    ui.on_uppercase_password(move || {
+        println!("uppercase toggled");
+    });
 
     //If checked also use lowercase letters
     ui.on_lowercase_password(move || {
-        let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE].concat();
-        // println!("lowercase toggled");
+        println!("lowercase toggled");
     });
 
     //If checked also use numbers
     ui.on_number_password(move || {
-        let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER].concat();
-        // println!("numbers toggled");
+        println!("numbers toggled");
     });
 
     //If checked also use special characters
     ui.on_special_password(move || {
-        let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
-        // println!("special characters toggled");
+        println!("special characters toggled");
+    });
+
+    //Change password length
+    ui.on_length_password(move || {
+        println!("password length edited");
     });
 
     //Main
@@ -60,7 +66,7 @@ fn main() -> Result<(), slint::PlatformError> {
             })
             .collect();
     
-        //println!("{:?}", password_string);
+        println!("Password: {:?}", password_string);
 
         //Convert String to SharedString for Slint UI
         let password = SharedString::from(password_string);
