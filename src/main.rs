@@ -22,9 +22,9 @@ fn main() -> Result<(), slint::PlatformError> {
     let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
 
     // Default use only uppercase letters
-    // ui.on_uppercase_password(move || {
-    //     println!("uppercase toggled");
-    // });
+    ui.on_uppercase_password(move || {
+        println!("uppercase toggled");
+    });
 
     // If checked also use lowercase letters
     ui.on_lowercase_password(move || {

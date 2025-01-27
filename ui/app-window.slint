@@ -5,7 +5,7 @@ export component AppWindow inherits Window {
     //Generate callback
     callback generate_password;
     callback length_password;
-    //callback uppercase_password;
+    callback uppercase_password;
     callback lowercase_password;
     callback number_password;
     callback special_password;
@@ -30,7 +30,7 @@ export component AppWindow inherits Window {
         padding: 10px;
         Row {
             Text {
-                height: 60px;
+                height: 80px;
                 horizontal-alignment: center;
                 vertical-alignment: center;
                 text: "Password generator";
@@ -69,23 +69,18 @@ export component AppWindow inherits Window {
             }
         }
         Row {
-            Rectangle {
-                height: 0px;
-            }
-        }
-        Row {
             Text {
                 text: "Password length:";
                 height: 30px;
                 font-size: 14px;
                 font-weight: 100;
+                vertical-alignment: center;
                 horizontal-alignment: left;
-                TextInput {
+                LineEdit {
                     text: long;
-                    height: 30px;
+                    height: 20px;
+                    width: 40px;
                     input-type: number;
-                    selection-background-color: black;
-                    selection-foreground-color: white;
                     horizontal-alignment: center;
                     edited => {
                         length_password();
