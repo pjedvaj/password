@@ -1,4 +1,4 @@
-//#![windows_subsystem = "windows"]
+// #![windows_subsystem = "windows"]
 
 use slint::SharedString;
 use slint::Weak;
@@ -10,7 +10,7 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
-    //Allowed characters
+    // Allowed characters
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     const LOWERCASE: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
@@ -21,42 +21,45 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
 
-    //Default use only uppercase letters
+    // Default use only uppercase letters
     // ui.on_uppercase_password(move || {
     //     println!("uppercase toggled");
     // });
 
-    //If checked also use lowercase letters
+    // If checked also use lowercase letters
     ui.on_lowercase_password(move || {
-        println!("lowercase toggled");
+        println!("Lowercase toggled");
+        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE].concat();
     });
 
-    //If checked also use numbers
+    // If checked also use numbers
     ui.on_number_password(move || {
-        println!("numbers toggled");
+        println!("Numbers toggled");
+        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER].concat();
     });
 
-    //If checked also use special characters
+    // If checked also use special characters
     ui.on_special_password(move || {
-        println!("special characters toggled");
+        println!("Special characters toggled");
+        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
     });
 
-    //Change password length
+    // Password length - 16 characters
+    let mut password_length: usize = 16;
+
+    // Change password length
     ui.on_length_password(move || {
-        println!("password length edited");
+        println!("Length edited");
     });
 
-    //Main
+    // Main
     ui.on_generate_password(move || {
         let ui: AppWindow = ui_handle.unwrap();
 
-        //Random pasword generator
+        // Random pasword generator
         use rand::Rng;
-
-        // Password length - 16 characters
-        let password_length: usize = 16;
     
-        //Generating password
+        // Generating password
         let mut password_range = rand::thread_rng();
     
         let password_string: String = (0..password_length)
@@ -68,10 +71,10 @@ fn main() -> Result<(), slint::PlatformError> {
     
         println!("Password: {:?}", password_string);
 
-        //Convert String to SharedString for Slint UI
+        // Convert String to SharedString for Slint UI
         let password = SharedString::from(password_string);
         
-        //Set password variable in Slint UI
+        // Set password variable in Slint UI
         ui.set_password(password);
     });
 

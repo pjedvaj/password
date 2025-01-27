@@ -53,7 +53,7 @@ export component AppWindow inherits Window {
                 clicked => {
                     generated.select-all(); //Select password text
                     generated.copy(); //Copy password to clipboard
-                    debug("copied"); //Console text
+                    debug("Copied"); //Console text
                 }
             }
         }
@@ -108,6 +108,7 @@ export component AppWindow inherits Window {
                 text: "Lowercase";
                 checked: lower;
                 toggled => {
+                    self.checked = true;
                     lowercase_password();
                 }
             }
@@ -117,6 +118,7 @@ export component AppWindow inherits Window {
                 text: "Numbers";
                 checked: num;
                 toggled => {
+                    self.checked = true;
                     number_password();
                 }
             }
@@ -126,6 +128,7 @@ export component AppWindow inherits Window {
                 text: "Special characters";
                 checked: spec;
                 toggled => {
+                    self.checked = true;
                     special_password();
                 }
             }
