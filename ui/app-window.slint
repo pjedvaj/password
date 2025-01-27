@@ -5,7 +5,7 @@ export component AppWindow inherits Window {
     //Generate callback
     callback generate_password;
     callback length_password;
-    callback uppercase_password;
+    //callback uppercase_password;
     callback lowercase_password;
     callback number_password;
     callback special_password;
@@ -43,18 +43,17 @@ export component AppWindow inherits Window {
         Row {
             generated := LineEdit {
                 height: 60px;
-                width: 60%;
                 placeholder-text: "Password";
                 text: password;
             }
             Button {
                 height: 60px;
-                width: 30%;
                 text: "Copy";
                 primary: true;
                 clicked => {
                     generated.select-all(); //Select password text
                     generated.copy(); //Copy password to clipboard
+                    debug("copied"); //Console text
                 }
             }
         }
@@ -70,18 +69,28 @@ export component AppWindow inherits Window {
             }
         }
         Row {
+            Rectangle {
+                height: 0px;
+            }
+        }
+        Row {
             Text {
                 text: "Password length:";
                 height: 30px;
                 font-size: 14px;
                 font-weight: 100;
+                horizontal-alignment: left;
+                TextInput {
+                    text: long;
+                    height: 30px;
+                    input-type: number;
+                    selection-background-color: black;
+                    selection-foreground-color: white;
+                    horizontal-alignment: center;
+                    edited => {
+                        length_password();
+                    }
             }
-            TextInput {
-                input-type: number;
-                text: long;
-                edited => {
-                    length_password();
-                }
             }
         }
         Row {
@@ -89,7 +98,8 @@ export component AppWindow inherits Window {
                 text: "Uppercase";
                 checked: upper;
                 toggled => {
-                    uppercase_password();
+                    self.checked = true;
+                    //uppercase_password();
                 }
             }
         }
