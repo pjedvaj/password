@@ -13,7 +13,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
     // Allowed characters
-    const EMPTY: &[u8] = b"_";
+    // const EMPTY: &[u8] = b"_";
 
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -23,31 +23,31 @@ fn main() -> Result<(), slint::PlatformError> {
 
     const SPECIAL: &[u8] = b")(*&^%$#@!~";
 
-    let mut charset:Vec<u8> = [EMPTY].concat();
+    let charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
 
-    if ui.on_uppercase_password(move || {
-        println!("uppercase toggled");
-    }) == () {
-        charset = [UPPERCASE].concat();
-    }
+    // if ui.on_uppercase_password(move || {
+    //     println!("uppercase toggled");
+    // }) == () {
+    //     charset = [UPPERCASE].concat();
+    // }
     
-    if ui.on_lowercase_password(move || {
-        println!("Lowercase toggled");
-    }) == () {
-        charset = [UPPERCASE, LOWERCASE].concat();
-    }
+    // if ui.on_lowercase_password(move || {
+    //     println!("Lowercase toggled");
+    // }) == () {
+    //     charset = [UPPERCASE, LOWERCASE].concat();
+    // }
     
-    if ui.on_number_password(move || {
-        println!("Numbers toggled");
-    }) == () {
-        charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
-    }
+    // if ui.on_number_password(move || {
+    //     println!("Numbers toggled");
+    // }) == () {
+    //     charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
+    // }
     
-    if ui.on_special_password(move || {
-        println!("Special characters toggled");
-    }) == () {
-        charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
-    }
+    // if ui.on_special_password(move || {
+    //     println!("Special characters toggled");
+    // }) == () {
+    //     charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+    // }
 
     // Main
     ui.on_generate_password(move |long| {
@@ -56,9 +56,9 @@ fn main() -> Result<(), slint::PlatformError> {
         // Password length
         ui.get_long();
         println!("Length: {}", ui.get_long());
-        let mut str: String = long.to_string();
-        let mut integer: usize = str.parse().expect("Not a valid number");
-        let mut password_length = integer as usize;
+        let str: String = long.to_string();
+        let integer: usize = str.parse().expect("Not a valid number");
+        let password_length = integer as usize;
 
         // Random pasword generator
         use rand::Rng;
