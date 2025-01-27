@@ -11,6 +11,8 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
     // Allowed characters
+    const EMPTY: &[u8] = b"_";
+
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     const LOWERCASE: &[u8] = b"abcdefghijklmnopqrstuvwxyz";
@@ -19,30 +21,25 @@ fn main() -> Result<(), slint::PlatformError> {
 
     const SPECIAL: &[u8] = b")(*&^%$#@!~";
 
-    let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+    let mut charset:Vec<u8> = [EMPTY].concat();
 
-    // Default use only uppercase letters
-    ui.on_uppercase_password(move || {
+    if ui.on_uppercase_password(move || {
         println!("uppercase toggled");
-    });
-
-    // If checked also use lowercase letters
-    ui.on_lowercase_password(move || {
+    }) == () {
+        charset = [UPPERCASE].concat();
+    } else if ui.on_lowercase_password(move || {
         println!("Lowercase toggled");
-        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE].concat();
-    });
-
-    // If checked also use numbers
-    ui.on_number_password(move || {
+    }) == () {
+        charset = [UPPERCASE, LOWERCASE].concat();
+    } else if ui.on_number_password(move || {
         println!("Numbers toggled");
-        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER].concat();
-    });
-
-    // If checked also use special characters
-    ui.on_special_password(move || {
+    }) == () {
+        charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
+    } else if ui.on_special_password(move || {
         println!("Special characters toggled");
-        // let mut charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
-    });
+    }) == () {
+        charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+    }
 
     // Password length - 16 characters
     let mut password_length: usize = 16;
