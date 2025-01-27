@@ -27,15 +27,21 @@ fn main() -> Result<(), slint::PlatformError> {
         println!("uppercase toggled");
     }) == () {
         charset = [UPPERCASE].concat();
-    } else if ui.on_lowercase_password(move || {
+    }
+    
+    if ui.on_lowercase_password(move || {
         println!("Lowercase toggled");
     }) == () {
         charset = [UPPERCASE, LOWERCASE].concat();
-    } else if ui.on_number_password(move || {
+    }
+    
+    if ui.on_number_password(move || {
         println!("Numbers toggled");
     }) == () {
         charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
-    } else if ui.on_special_password(move || {
+    }
+    
+    if ui.on_special_password(move || {
         println!("Special characters toggled");
     }) == () {
         charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
