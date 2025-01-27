@@ -51,9 +51,10 @@ fn main() -> Result<(), slint::PlatformError> {
     let mut password_length: usize = 16;
 
     // Change password length
-    ui.on_length_password(move || {
-        println!("Length edited");
-    });
+    // ui.on_length_password(move |long| {
+    //     ui.set_long(long);
+    //     println!("Length: {}", ui.get_long());
+    // });
 
     // Main
     ui.on_generate_password(move || {

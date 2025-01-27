@@ -4,7 +4,7 @@ export component AppWindow inherits Window {
 
     //Generate callback
     callback generate_password;
-    callback length_password;
+    callback length_password(int);
     callback uppercase_password;
     callback lowercase_password;
     callback number_password;
@@ -83,7 +83,7 @@ export component AppWindow inherits Window {
                     input-type: number;
                     horizontal-alignment: center;
                     edited => {
-                        length_password();
+                        length_password(long);
                     }
             }
             }
