@@ -3,8 +3,7 @@ import { GridBox, LineEdit, CheckBox, Button, Slider } from "std-widgets.slint";
 export component AppWindow inherits Window {
 
     //Generate callback
-    callback generate_password;
-    callback length_password(int);
+    callback generate_password(string);
     callback uppercase_password;
     callback lowercase_password;
     callback number_password;
@@ -12,7 +11,7 @@ export component AppWindow inherits Window {
 
     //Generated password variable
     in-out property <string> password;
-    in-out property <int> long: 16;
+    in-out property <string> long: len.text;
     in-out property <bool> upper: true;
     in-out property <bool> lower: false;
     in-out property <bool> num: false;
@@ -64,7 +63,7 @@ export component AppWindow inherits Window {
                 height: 60px;
                 colspan: 2;
                 clicked => {
-                    generate_password();
+                    generate_password(long);
                 }
             }
         }
@@ -76,14 +75,14 @@ export component AppWindow inherits Window {
                 font-weight: 100;
                 vertical-alignment: center;
                 horizontal-alignment: left;
-                LineEdit {
-                    text: long;
+                len := LineEdit {
+                    text: 16;
                     height: 20px;
                     width: 40px;
                     input-type: number;
                     horizontal-alignment: center;
                     edited => {
-                        length_password(long);
+                        generate_password(long);
                     }
             }
             }

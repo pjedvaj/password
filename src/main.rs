@@ -1,5 +1,7 @@
 // #![windows_subsystem = "windows"]
 
+use std::usize;
+
 use slint::SharedString;
 use slint::Weak;
 
@@ -47,18 +49,16 @@ fn main() -> Result<(), slint::PlatformError> {
         charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
     }
 
-    // Password length - 16 characters
-    let mut password_length: usize = 16;
-
-    // Change password length
-    // ui.on_length_password(move |long| {
-    //     ui.set_long(long);
-    //     println!("Length: {}", ui.get_long());
-    // });
-
     // Main
-    ui.on_generate_password(move || {
+    ui.on_generate_password(move |long| {
         let ui: AppWindow = ui_handle.unwrap();
+
+        // Password length
+        ui.get_long();
+        println!("Length: {}", ui.get_long());
+        let mut str: String = long.to_string();
+        let mut integer: usize = str.parse().expect("Not a valid number");
+        let mut password_length = integer as usize;
 
         // Random pasword generator
         use rand::Rng;
