@@ -11,7 +11,7 @@ export component AppWindow inherits Window {
 
     //Generated password variable
     in-out property <string> password;
-    in-out property <string> long: len.text;
+    in-out property <string> long: value.text;
     in-out property <bool> upper: true;
     in-out property <bool> lower: false;
     in-out property <bool> num: false;
@@ -75,7 +75,7 @@ export component AppWindow inherits Window {
                 font-weight: 100;
                 vertical-alignment: center;
                 horizontal-alignment: left;
-                len := LineEdit {
+                value := LineEdit {
                     text: 16;
                     height: 20px;
                     width: 40px;
