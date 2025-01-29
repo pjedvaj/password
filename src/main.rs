@@ -49,6 +49,10 @@ fn main() -> Result<(), slint::PlatformError> {
             charset = [UPPERCASE].concat();
         }
 
+        if up == true && low == false && num == true && spec == true {
+            charset = [UPPERCASE, NUMBER, SPECIAL].concat();
+        }
+
         if up == true && low == true && num == false && spec == false {
             charset = [UPPERCASE, LOWERCASE].concat();
         }
