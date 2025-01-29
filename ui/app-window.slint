@@ -86,6 +86,9 @@ export component AppWindow inherits Window {
                 checked: true;
                 toggled => {
                     self.checked = true;
+                    low.checked = false;
+                    num.checked = false;
+                    spec.checked = false;
                     option = 1;
                     generate_password(length, option);
                 }
@@ -96,8 +99,10 @@ export component AppWindow inherits Window {
                 text: "Lowercase";
                 checked: false;
                 toggled => {
-                    self.checked = true;
                     up.checked = true;
+                    self.checked = true;
+                    num.checked = false;
+                    spec.checked = false;
                     option = 3;
                     generate_password(length, option);
                 }
@@ -108,9 +113,10 @@ export component AppWindow inherits Window {
                 text: "Numbers";
                 checked: false;
                 toggled => {
-                    self.checked = true;
                     up.checked = true;
                     low.checked = true;
+                    self.checked = true;
+                    spec.checked = false;
                     option = 5;
                     generate_password(length, option);
                 }
@@ -121,10 +127,10 @@ export component AppWindow inherits Window {
                 text: "Special characters";
                 checked: false;
                 toggled => {
-                    self.checked = true;
                     up.checked = true;
                     low.checked = true;
                     num.checked = true;
+                    self.checked = true;
                     option = 7;
                     generate_password(length, option);
                 }
