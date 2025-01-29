@@ -1,21 +1,14 @@
-import { GridBox, LineEdit, CheckBox, Button, Slider } from "std-widgets.slint";
+import { GridBox, LineEdit, Switch, Button } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
 
     //Generate callback
-    callback generate_password(string);
-    callback uppercase_password(bool);
-    callback lowercase_password(bool);
-    callback number_password(bool);
-    callback special_password(bool);
+    callback generate_password(string, int);
 
     //Generated password variable
     in-out property <string> password;
     in-out property <string> length: value.text;
-    in-out property <bool> upcheck: true;
-    in-out property <bool> lowcheck: false;
-    in-out property <bool> numcheck: false;
-    in-out property <bool> specheck: false;
+    in-out property <int> option: 1;
 
     //Main app window layout
     width: 480px;
@@ -63,7 +56,7 @@ export component AppWindow inherits Window {
                 height: 60px;
                 colspan: 2;
                 clicked => {
-                    generate_password(length);
+                    generate_password(length, option);
                 }
             }
         }
@@ -82,52 +75,58 @@ export component AppWindow inherits Window {
                     input-type: number;
                     horizontal-alignment: center;
                     edited => {
-                        generate_password(length);
+                        generate_password(length, option);
                     }
             }
             }
         }
         Row {
-            CheckBox {
+            up := Switch {
                 text: "Uppercase";
-                checked: upcheck;
+                checked: true;
                 toggled => {
-                    if upcheck == true {
-                        uppercase_password(upcheck);
-                    }
+                    self.checked = true;
+                    option = 1;
+                    generate_password(length, option);
                 }
             }
         }
         Row {
-            CheckBox {
+            low := Switch {
                 text: "Lowercase";
-                checked: lowcheck;
+                checked: false;
                 toggled => {
-                    if lowcheck == true {
-                        lowercase_password(lowcheck);
-                    }
+                    self.checked = true;
+                    up.checked = true;
+                    option = 3;
+                    generate_password(length, option);
                 }
             }
         }
         Row {
-            CheckBox {
+            num := Switch {
                 text: "Numbers";
-                checked: numcheck;
+                checked: false;
                 toggled => {
-                    if numcheck == true {
-                        number_password(numcheck);
-                    }
+                    self.checked = true;
+                    up.checked = true;
+                    low.checked = true;
+                    option = 5;
+                    generate_password(length, option);
                 }
             }
         }
         Row {
-            CheckBox {
+            spec := Switch {
                 text: "Special characters";
-                checked: specheck;
+                checked: false;
                 toggled => {
-                    if specheck == true {
-                        special_password(specheck);
-                    }
+                    self.checked = true;
+                    up.checked = true;
+                    low.checked = true;
+                    num.checked = true;
+                    option = 7;
+                    generate_password(length, option);
                 }
             }
         }

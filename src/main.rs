@@ -25,42 +25,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
     let mut charset:Vec<u8> = [EMPTY].concat();
 
-
-    // Character combinations
-    //let upcheck: bool = ui.get_upcheck();
-
-    if ui.on_uppercase_password(move |upcheck| {
-        println!("uppercase toggled");
-    }) == () /* && upcheck == true  */ {
-        charset = [UPPERCASE].concat();
-    }
-
-    //let lowcheck: bool = ui.get_lowcheck();
-    
-    if ui.on_lowercase_password(move |lowcheck| {
-        println!("Lowercase toggled");
-    }) == () /* && lowcheck == true */ {
-        charset = [UPPERCASE, LOWERCASE].concat();
-    }
-
-    //let numcheck: bool = ui.get_numcheck();
-    
-    if ui.on_number_password(move |numcheck| {
-        println!("Numbers toggled");
-    }) == () /* && numcheck == true */ {
-        charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
-    }
-
-    //let specheck: bool = ui.get_numcheck();
-    
-    if ui.on_special_password(move |specheck| {
-        println!("Special characters toggled");
-    }) == () /* && specheck == true */  {
-        charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
-    }
-
     // Main
-    ui.on_generate_password(move |length| {
+    ui.on_generate_password(move |length, option| {
         let ui: AppWindow = ui_handle.unwrap();
 
         // Password length
@@ -69,6 +35,27 @@ fn main() -> Result<(), slint::PlatformError> {
         let str: String = length.to_string();
         let integer: usize = str.parse().expect("Not a valid number");
         let password_length = integer as usize;
+
+        // Password options
+        ui.get_option();
+        let option = ui.get_option();
+        println!("Option: {}", option);
+
+        if option == 1 {
+            charset = [UPPERCASE].concat();
+        }
+
+        else if option == 3 {
+            charset = [UPPERCASE, LOWERCASE].concat();
+        }
+
+        else if option == 5 {
+            charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
+        }
+
+        else if option == 7 {
+            charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+        }
 
         // Random pasword generator
         use rand::Rng;
