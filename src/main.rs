@@ -1,4 +1,4 @@
-#![windows_subsystem = "windows"]
+//#![windows_subsystem = "windows"]
 
 use std::usize;
 
@@ -13,7 +13,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
     // Allowed characters
-    // const EMPTY: &[u8] = b"_";
+    const EMPTY: &[u8] = b"_";
 
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -23,40 +23,50 @@ fn main() -> Result<(), slint::PlatformError> {
 
     const SPECIAL: &[u8] = b")(*&^%$#@!~";
 
-    let charset:Vec<u8> = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+    let mut charset:Vec<u8> = [EMPTY].concat();
 
-    // if ui.on_uppercase_password(move || {
-    //     println!("uppercase toggled");
-    // }) == () {
-    //     charset = [UPPERCASE].concat();
-    // }
+
+    // Character combinations
+    //let upcheck: bool = ui.get_upcheck();
+
+    if ui.on_uppercase_password(move |upcheck| {
+        println!("uppercase toggled");
+    }) == () /* && upcheck == true  */ {
+        charset = [UPPERCASE].concat();
+    }
+
+    //let lowcheck: bool = ui.get_lowcheck();
     
-    // if ui.on_lowercase_password(move || {
-    //     println!("Lowercase toggled");
-    // }) == () {
-    //     charset = [UPPERCASE, LOWERCASE].concat();
-    // }
+    if ui.on_lowercase_password(move |lowcheck| {
+        println!("Lowercase toggled");
+    }) == () /* && lowcheck == true */ {
+        charset = [UPPERCASE, LOWERCASE].concat();
+    }
+
+    //let numcheck: bool = ui.get_numcheck();
     
-    // if ui.on_number_password(move || {
-    //     println!("Numbers toggled");
-    // }) == () {
-    //     charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
-    // }
+    if ui.on_number_password(move |numcheck| {
+        println!("Numbers toggled");
+    }) == () /* && numcheck == true */ {
+        charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
+    }
+
+    //let specheck: bool = ui.get_numcheck();
     
-    // if ui.on_special_password(move || {
-    //     println!("Special characters toggled");
-    // }) == () {
-    //     charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
-    // }
+    if ui.on_special_password(move |specheck| {
+        println!("Special characters toggled");
+    }) == () /* && specheck == true */  {
+        charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+    }
 
     // Main
-    ui.on_generate_password(move |long| {
+    ui.on_generate_password(move |length| {
         let ui: AppWindow = ui_handle.unwrap();
 
         // Password length
-        ui.get_long();
-        println!("Length: {}", ui.get_long());
-        let str: String = long.to_string();
+        ui.get_length();
+        println!("Length: {}", ui.get_length());
+        let str: String = length.to_string();
         let integer: usize = str.parse().expect("Not a valid number");
         let password_length = integer as usize;
 

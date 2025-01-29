@@ -4,18 +4,18 @@ export component AppWindow inherits Window {
 
     //Generate callback
     callback generate_password(string);
-    // callback uppercase_password;
-    // callback lowercase_password;
-    // callback number_password;
-    // callback special_password;
+    callback uppercase_password(bool);
+    callback lowercase_password(bool);
+    callback number_password(bool);
+    callback special_password(bool);
 
     //Generated password variable
     in-out property <string> password;
-    in-out property <string> long: value.text;
-    // in-out property <bool> upper: true;
-    // in-out property <bool> lower: false;
-    // in-out property <bool> num: false;
-    // in-out property <bool> spec: false;
+    in-out property <string> length: value.text;
+    in-out property <bool> upcheck: true;
+    in-out property <bool> lowcheck: false;
+    in-out property <bool> numcheck: false;
+    in-out property <bool> specheck: false;
 
     //Main app window layout
     width: 480px;
@@ -63,7 +63,7 @@ export component AppWindow inherits Window {
                 height: 60px;
                 colspan: 2;
                 clicked => {
-                    generate_password(long);
+                    generate_password(length);
                 }
             }
         }
@@ -82,7 +82,7 @@ export component AppWindow inherits Window {
                     input-type: number;
                     horizontal-alignment: center;
                     edited => {
-                        generate_password(long);
+                        generate_password(length);
                     }
             }
             }
@@ -90,40 +90,44 @@ export component AppWindow inherits Window {
         Row {
             CheckBox {
                 text: "Uppercase";
-                checked: true;
+                checked: upcheck;
                 toggled => {
-                    self.checked = true;
-                    //uppercase_password();
+                    if upcheck == true {
+                        uppercase_password(upcheck);
+                    }
                 }
             }
         }
         Row {
             CheckBox {
                 text: "Lowercase";
-                checked: true;
+                checked: lowcheck;
                 toggled => {
-                    self.checked = true;
-                    //lowercase_password();
+                    if lowcheck == true {
+                        lowercase_password(lowcheck);
+                    }
                 }
             }
         }
         Row {
             CheckBox {
                 text: "Numbers";
-                checked: true;
+                checked: numcheck;
                 toggled => {
-                    self.checked = true;
-                    //number_password();
+                    if numcheck == true {
+                        number_password(numcheck);
+                    }
                 }
             }
         }
         Row {
             CheckBox {
                 text: "Special characters";
-                checked: true;
+                checked: specheck;
                 toggled => {
-                    self.checked = true;
-                    //special_password();
+                    if specheck == true {
+                        special_password(specheck);
+                    }
                 }
             }
         }
