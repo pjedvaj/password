@@ -13,7 +13,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
     // Allowed characters
-    const EMPTY: &[u8] = b"_";
+    const EMPTY: &[u8] = b"*";
 
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -26,7 +26,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let mut charset:Vec<u8> = [EMPTY].concat();
 
     // Main
-    ui.on_generate_password(move |length, option| {
+    ui.on_generate_password(move |length, up, low, num, spec| {
         let ui: AppWindow = ui_handle.unwrap();
 
         // Password length
@@ -37,24 +37,69 @@ fn main() -> Result<(), slint::PlatformError> {
         let password_length = integer as usize;
 
         // Password options
-        ui.get_option();
-        let option = ui.get_option();
-        println!("Option: {}", option);
+        ui.get_up();
+        ui.get_low();
+        ui.get_num();
+        ui.get_spec();
 
-        if option == 1 {
+        if up == false && low == false && num == false && spec == false {
+            charset = [EMPTY].concat();
+        }
+
+        if up == true && low == false && num == false && spec == false {
             charset = [UPPERCASE].concat();
         }
 
-        else if option == 3 {
+        if up == true && low == true && num == false && spec == false {
             charset = [UPPERCASE, LOWERCASE].concat();
         }
 
-        else if option == 5 {
+        if up == true && low == true && num == true && spec == false {
             charset = [UPPERCASE, LOWERCASE, NUMBER].concat();
         }
 
-        else if option == 7 {
+        if up == true && low == true && num == true && spec == true {
             charset = [UPPERCASE, LOWERCASE, NUMBER, SPECIAL].concat();
+        }
+
+        if up == false && low == true && num == false && spec == false {
+            charset = [LOWERCASE].concat();
+        }
+
+        if up == false && low == true && num == true && spec == false {
+            charset = [LOWERCASE, NUMBER].concat();
+        }
+
+        if up == false && low == true && num == true && spec == true {
+            charset = [LOWERCASE, NUMBER, SPECIAL].concat();
+        }
+
+        if up == false && low == false && num == true && spec == false {
+            charset = [NUMBER].concat();
+        }
+
+        if up == false && low == false && num == false && spec == true {
+            charset = [SPECIAL].concat();
+        }
+
+        if up == true && low == false && num == true && spec == false {
+            charset = [UPPERCASE, NUMBER].concat();
+        }
+
+        if up == true && low == false && num == false && spec == true {
+            charset = [UPPERCASE, SPECIAL].concat();
+        }
+
+        if up == false && low == true && num == false && spec == true {
+            charset = [LOWERCASE, SPECIAL].concat();
+        }
+
+        if up == false && low == false && num == true && spec == true {
+            charset = [NUMBER, SPECIAL].concat();
+        }
+
+        if up == true && low == true && num == false && spec == true {
+            charset = [UPPERCASE, LOWERCASE, SPECIAL].concat();
         }
 
         // Random pasword generator
