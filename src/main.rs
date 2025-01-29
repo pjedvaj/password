@@ -31,7 +31,6 @@ fn main() -> Result<(), slint::PlatformError> {
 
         // Password length
         ui.get_length();
-        println!("Length: {}", ui.get_length());
         let str: String = length.to_string();
         let integer: usize = str.parse().expect("Not a valid number");
         let password_length = integer as usize;
@@ -114,8 +113,6 @@ fn main() -> Result<(), slint::PlatformError> {
                 charset[index] as char
             })
             .collect();
-    
-        println!("Password: {:?}", password_string);
 
         // Convert String to SharedString for Slint UI
         let password = SharedString::from(password_string);

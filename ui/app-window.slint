@@ -46,9 +46,8 @@ export component AppWindow inherits Window {
                 text: "Copy";
                 primary: true;
                 clicked => {
-                    generated.select-all(); //Select password text
-                    generated.copy(); //Copy password to clipboard
-                    debug("Copied"); //Console text
+                    generated.select-all();
+                    generated.copy();
                 }
             }
         }
