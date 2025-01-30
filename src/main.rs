@@ -13,7 +13,7 @@ fn main() -> Result<(), slint::PlatformError> {
     let ui_handle: Weak<AppWindow> = ui.as_weak();
 
     // Allowed characters
-    const EMPTY: &[u8] = b"*";
+    const EMPTY: &[u8] = b" ";
 
     const UPPERCASE: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
